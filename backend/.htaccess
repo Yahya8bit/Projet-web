@@ -1,0 +1,19 @@
+Header always set Access-Control-Allow-Origin "http://localhost:5173"
+Header always set Access-Control-Allow-Credentials "true"
+Header always set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+Header always set Access-Control-Allow-Headers "Content-Type, Authorization"
+
+RewriteEngine On
+
+RewriteCond %{REQUEST_METHOD} OPTIONS
+RewriteRule ^ - [R=204,L]
+
+RewriteRule ^api/products/([0-9]+)$  api/products/detail.php?id=$1  [QSA,L]
+RewriteRule ^api/products/?$         api/products/index.php          [QSA,L]
+RewriteRule ^api/brands/?$           api/brands/index.php            [QSA,L]
+RewriteRule ^api/auth/register$      api/auth/register.php           [QSA,L]
+RewriteRule ^api/auth/login$         api/auth/login.php              [QSA,L]
+RewriteRule ^api/auth/logout$        api/auth/logout.php             [QSA,L]
+RewriteRule ^api/auth/me$            api/auth/me.php                 [QSA,L]
+RewriteRule ^api/contact/?$          api/contact/index.php           [QSA,L]
+RewriteRule ^api/reviews/?$          api/reviews/index.php           [QSA,L]

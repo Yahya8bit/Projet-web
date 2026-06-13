@@ -1,0 +1,179 @@
+<!-- Membres: Yahia, Ghafer -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Questionnaire - G&Y Sole</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<header class="navbar">
+    <div id="logo">
+        <img src="../img/noir.jpg" alt="G&Y Sole Logo" class="logo">
+    </div>
+    <nav>
+        <a href="../index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="account.html">Account</a>
+    </nav>
+</header>
+
+<main class="container">
+    <section class="page-header">
+        <h1>Questionnaire de satisfaction</h1>
+        <p class="page-subtitle">Votre avis nous aide à améliorer G&Y Sole.</p>
+    </section>
+
+    <section class="content-block">
+        <!-- action → script PHP ; novalidate désactive la validation native du navigateur -->
+        <form id="questionnaireForm" action="../php/questionnaire_traitement.php" method="post" novalidate onsubmit="return validerQuestionnaire()">
+
+            <div class="form-group">
+                <label for="qNom">Nom *</label>
+                <input type="text" id="qNom" name="nom" placeholder="Votre nom">
+                <span id="errNom" class="err-msg"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="qEmail">Courriel *</label>
+                <!-- pattern HTML pour validation native + regex JS -->
+                <input type="email" id="qEmail" name="email"
+                       placeholder="vous@exemple.com"
+                       pattern="[^\s@]+@[^\s@]+\.[^\s@]+">
+                <span id="errEmail" class="err-msg"></span>
+            </div>
+
+            <div class="form-group">
+                <span>Note globale (1 à 5) *</span>
+                <select id="qNote" name="note">
+                    <option value="">— Choisir —</option>
+                    <option value="5">5 - Excellent</option>
+                    <option value="4">4 - Très bien</option>
+                    <option value="3">3 - Bien</option>
+                    <option value="2">2 - Moyen</option>
+                    <option value="1">1 - Insuffisant</option>
+                </select>
+                <span id="errNote" class="err-msg"></span>
+            </div>
+
+            <div class="form-group">
+                <span>Comment décririez-vous votre expérience ? *</span><br>
+                <label><input type="radio" name="qExperience" value="tres_satisfait"> Très satisfait</label><br>
+                <label><input type="radio" name="qExperience" value="satisfait"> Satisfait</label><br>
+                <label><input type="radio" name="qExperience" value="insatisfait"> Insatisfait</label>
+                <span id="errExperience" class="err-msg" style="display:block;"></span>
+            </div>
+
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" id="qNewsletter" name="newsletter" value="oui">
+                    Je souhaite recevoir des offres par courriel
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label for="qCommentaire">Commentaires * (min. 10 caractères)</label>
+                <textarea id="qCommentaire" name="commentaire" rows="5"
+                          placeholder="Vos suggestions ou remarques..."
+                          minlength="10"></textarea>
+                <span id="errCommentaire" class="err-msg"></span>
+            </div>
+
+            <input type="submit" value="Envoyer le questionnaire">
+        </form>
+    </section>
+</main>
+
+<footer>
+    <p>© 2026 G&Y Sole</p>
+</footer>
+
+<style>
+/* Styles pour les messages d'erreur inline */
+.err-msg {
+    color: #f44336;
+    font-size: 0.85em;
+    display: block;
+    min-height: 1.2em;
+    margin-top: 4px;
+}
+</style>
+
+<script>
+/**
+ * Validation JavaScript du formulaire questionnaire
+ * Membres : Yahia, Ghafer
+ * Utilise : champs obligatoires, regex, longueur, logique radio
+ */
+function validerQuestionnaire() {
+    var valide = true;
+
+    /**
+     * Affiche ou efface un message d'erreur près du champ concerné.
+     * @param {string} spanId - ID du <span> d'erreur
+     * @param {string} msg    - Message à afficher (vide = pas d'erreur)
+     */
+    function setErreur(spanId, msg) {
+        var el = document.getElementById(spanId);
+        if (el) el.innerText = msg;
+        if (msg !== '') valide = false;
+    }
+
+    // ── 1. Nom : obligatoire, min 2 caractères ──────────────────────────────
+    var nom = document.getElementById('qNom').value.trim();
+    if (nom.length < 2) {
+        setErreur('errNom', 'Le nom doit contenir au moins 2 caractères.');
+    } else {
+        setErreur('errNom', '');
+    }
+
+    // ── 2. Email : obligatoire + regex ──────────────────────────────────────
+    var email = document.getElementById('qEmail').value.trim();
+    var regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (email === '') {
+        setErreur('errEmail', 'L\'adresse e-mail est obligatoire.');
+    } else if (!regexEmail.test(email)) {
+        setErreur('errEmail', 'Format d\'e-mail invalide (ex : vous@exemple.com).');
+    } else {
+        setErreur('errEmail', '');
+    }
+
+    // ── 3. Note : sélection obligatoire (contrainte de plage) ───────────────
+    var note = document.getElementById('qNote').value;
+    if (!note || note === '') {
+        setErreur('errNote', 'Veuillez choisir une note entre 1 et 5.');
+    } else {
+        setErreur('errNote', '');
+    }
+
+    // ── 4. Radio expérience : validation logique obligatoire ─────────────────
+    var radios = document.getElementsByName('qExperience');
+    var radioChoisi = false;
+    for (var i = 0; i < radios.length; i++) {
+        if (radios[i].checked) { radioChoisi = true; break; }
+    }
+    if (!radioChoisi) {
+        setErreur('errExperience', 'Veuillez choisir votre niveau de satisfaction.');
+    } else {
+        setErreur('errExperience', '');
+    }
+
+    // ── 5. Commentaire : obligatoire + longueur minimale ────────────────────
+    var commentaire = document.getElementById('qCommentaire').value.trim();
+    if (commentaire === '') {
+        setErreur('errCommentaire', 'Le commentaire est obligatoire.');
+    } else if (commentaire.length < 10) {
+        setErreur('errCommentaire', 'Le commentaire doit faire au moins 10 caractères (actuellement : ' + commentaire.length + ').');
+    } else {
+        setErreur('errCommentaire', '');
+    }
+
+    // Retourner false bloque l'envoi si au moins une erreur existe
+    return valide;
+}
+</script>
+</body>
+</html>
