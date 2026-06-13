@@ -40,6 +40,8 @@ function FilterDropdown({ label, count, children }) {
     <div ref={ref} style={{ position: 'relative', height: CTRL_H }}>
       <button
         onClick={() => setOpen(v => !v)}
+        aria-expanded={open}
+        aria-haspopup="listbox"
         className={`filter-pill${active ? ' filter-pill-active' : ''}`}
       >
         {label}{active ? ` (${count})` : ''}
@@ -67,9 +69,12 @@ function OptionPill({ active, onClick, children }) {
   return (
     <button
       onClick={onClick}
+      role="option"
+      aria-selected={active}
       style={{
-        display: 'block', width: '100%', textAlign: 'left',
-        padding: '7px 10px',
+        display: 'flex', width: '100%', textAlign: 'left',
+        minHeight: 44, padding: '0 14px',
+        alignItems: 'center', justifyContent: 'space-between',
         background: active ? 'rgba(212,175,55,0.12)' : 'transparent',
         border: 'none',
         color: active ? '#d4af37' : '#c0bdb5',
@@ -77,7 +82,6 @@ function OptionPill({ active, onClick, children }) {
         fontWeight: active ? 600 : 400,
         cursor: 'pointer',
         transition: 'background 0.12s, color 0.12s',
-        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
       }}
       onMouseEnter={e => { if (!active) e.currentTarget.style.background = 'rgba(255,255,255,0.04)' }}
       onMouseLeave={e => { if (!active) e.currentTarget.style.background = 'transparent' }}
@@ -204,8 +208,9 @@ export default function Products() {
           width: 220px;
           transition: background 0.15s;
         }
-        .search-input:hover, .search-input:focus { background: #2a2a2a; }
-        .search-input::placeholder { color: #555; }
+        .search-input:hover { background: #2a2a2a; }
+        .search-input:focus { background: #2a2a2a; outline: 2px solid #d4af37; outline-offset: 2px; }
+        .search-input::placeholder { color: #aaa; }
 
         /* Sort */
         .sort-select {
@@ -221,7 +226,8 @@ export default function Products() {
           cursor: pointer;
           transition: background 0.15s;
         }
-        .sort-select:hover, .sort-select:focus { background: #2a2a2a; }
+        .sort-select:hover { background: #2a2a2a; }
+        .sort-select:focus { background: #2a2a2a; outline: 2px solid #d4af37; outline-offset: 2px; }
 
         .active-chip {
           display: inline-flex; align-items: center; gap: 6px;
@@ -250,7 +256,7 @@ export default function Products() {
             fontSize: 'clamp(28px, 4vw, 48px)',
             fontWeight: 900, color: '#f5f0e6', lineHeight: 1, margin: 0,
           }}>All shoes</h1>
-          <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 13, color: '#555' }}>
+          <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 13, color: '#aaa' }}>
             {loading ? 'Loading…' : `${filtered.length} result${filtered.length !== 1 ? 's' : ''}`}
           </span>
         </div>
@@ -323,7 +329,7 @@ export default function Products() {
               </span>
             ))}
             <button onClick={clearAll} style={{
-              background: 'none', border: 'none', color: '#555',
+              background: 'none', border: 'none', color: '#aaa',
               fontFamily: "'Inter', sans-serif", fontSize: 12,
               cursor: 'pointer', padding: '4px 0', textDecoration: 'underline',
             }}>Clear all</button>
@@ -339,7 +345,7 @@ export default function Products() {
               fontFamily: "'Fraunces', Georgia, serif",
               fontSize: 28, fontWeight: 700, color: '#f5f0e6', marginBottom: 12,
             }}>No products match your filters</p>
-            <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 14, color: '#666', marginBottom: 24 }}>
+            <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 14, color: '#aaa', marginBottom: 24 }}>
               Try adjusting or clearing the filters above.
             </p>
             <button onClick={clearAll} style={{
@@ -357,14 +363,14 @@ export default function Products() {
                   {!p.disponible && (
                     <span style={{
                       position: 'absolute', top: 10, left: 10,
-                      background: '#1a1a1a', color: '#777',
+                      background: '#1a1a1a', color: '#aaa',
                       fontFamily: "'Inter', sans-serif", fontSize: 10, fontWeight: 600,
                       padding: '3px 8px',
                     }}>Out of stock</span>
                   )}
                 </div>
                 <div style={{ padding: '10px 10px 0' }}>
-                  <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 11, color: '#666', marginBottom: 4 }}>
+                  <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 11, color: '#aaa', marginBottom: 4 }}>
                     {p.marque} · {p.type}
                   </p>
                   <p style={{

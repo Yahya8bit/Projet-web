@@ -141,3 +141,11 @@ Palette: canvas `#0f0f0f` · surface `#1a1a1a` · header `#000000` · gold `#d4a
 - No Redux, Next.js, Node backend.
 - Don't drop the black/gold theme.
 - Don't commit secrets — DB credentials in `db.php` (root/no password for localhost).
+
+## Design context
+
+- **PRODUCT.md** (root) — strategic: register, users, brand personality, anti-references, design principles. Read before design decisions.
+- **DESIGN.md** (root) — visual art direction. Read before any UI work.
+- Register: **brand** (storefront-led). Goal: **portfolio showpiece** — craft is the deliverable.
+- Accessibility target: **WCAG AAA** (7:1 body text). The dark palette's muted greys (`#555`/`#666`/`#777`) fall below this and need bumping toward the ink end; gold and white headlines pass.
+- Impeccable skill is set up: `/impeccable audit`, `critique`, `live` (live config at `.impeccable/live/config.json`).
