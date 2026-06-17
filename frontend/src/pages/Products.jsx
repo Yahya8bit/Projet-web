@@ -33,13 +33,37 @@ const CTRL_H = 44
 function FilterDropdown({ label, count, children }) {
   const [open, setOpen] = useState(false)
   const ref = useRef(null)
-  useClickOutside(ref, () => setOpen(false))
+  const triggerRef = useRef(null)
+  const panelRef = useRef(null)
   const active = count > 0
+
+  useClickOutside(ref, () => setOpen(false))
+
+  useEffect(() => {
+    if (!open) return
+    function onKeyDown(e) {
+      if (e.key === 'Escape') {
+        setOpen(false)
+        triggerRef.current?.focus()
+      }
+    }
+    document.addEventListener('keydown', onKeyDown)
+    return () => document.removeEventListener('keydown', onKeyDown)
+  }, [open])
+
+  function handleToggle() {
+    setOpen(v => {
+      if (!v) setTimeout(() => panelRef.current?.querySelector('button')?.focus(), 0)
+      else triggerRef.current?.focus()
+      return !v
+    })
+  }
 
   return (
     <div ref={ref} style={{ position: 'relative', height: CTRL_H }}>
       <button
-        onClick={() => setOpen(v => !v)}
+        ref={triggerRef}
+        onClick={handleToggle}
         aria-expanded={open}
         aria-haspopup="listbox"
         className={`filter-pill${active ? ' filter-pill-active' : ''}`}
@@ -51,7 +75,7 @@ function FilterDropdown({ label, count, children }) {
         </svg>
       </button>
       {open && (
-        <div style={{
+        <div ref={panelRef} role="listbox" style={{
           position: 'absolute', top: 'calc(100% + 6px)', left: 0, zIndex: 200,
           background: '#1a1a1a', border: '1px solid #333',
           borderTop: '2px solid #d4af37',
@@ -359,7 +383,7 @@ export default function Products() {
             {filtered.map(p => (
               <Link key={p.id} to={`/products/${p.id}`} className="prod-card">
                 <div className="prod-card-img-wrap">
-                  <img className="prod-card-img" src={IMG(p.photo)} alt={p.modele} />
+                  <img className="prod-card-img" src={IMG(p.photo)} alt={p.modele} loading="lazy" decoding="async" />
                   {!p.disponible && (
                     <span style={{
                       position: 'absolute', top: 10, left: 10,
