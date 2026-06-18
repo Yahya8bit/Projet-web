@@ -1,8 +1,8 @@
 import { useState, useEffect, useMemo, useRef } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
+import { fetchProducts } from '../api/products'
 
 const IMG = (name) => `/img/${name}`
-const API = 'http://localhost/gy_sole/backend/api'
 
 const BRANDS      = ['Nike', 'Adidas', 'Puma', 'New Balance', 'Converse']
 const COLLECTIONS = ['Men', 'Women', 'Kids']
@@ -128,8 +128,7 @@ export default function Products() {
   const [sort, setSort]                 = useState('default')
 
   useEffect(() => {
-    fetch(`${API}/products/`)
-      .then(r => r.json())
+    fetchProducts()
       .then(data => { if (Array.isArray(data) && data.length) setAllProducts(data) })
       .catch(() => {})
       .finally(() => setLoading(false))

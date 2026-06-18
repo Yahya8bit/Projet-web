@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom'
 import { useState, useEffect, useRef } from 'react'
+import { fetchProducts } from '../api/products'
 
 const IMG = (name) => `/img/${name}`
-const API = 'http://localhost/gy_sole/backend/api'
 
 const BRANDS = [
   { name: 'Nike',        img: 'nike.jpg',        to: '/products?brand=Nike' },
@@ -34,8 +34,7 @@ export default function Home() {
   const rowRef = useRef(null)
 
   useEffect(() => {
-    fetch(`${API}/products/`)
-      .then(r => r.json())
+    fetchProducts()
       .then(data => { if (data.length) setProducts(data) })
       .catch(() => {})
   }, [])
