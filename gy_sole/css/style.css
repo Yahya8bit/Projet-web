@@ -1,0 +1,410 @@
+/*
+ * Projet Web Phase 3
+ * Membres : Yahia, Ghafer
+ */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #0f0f0f; 
+    color: #ffffff;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+#logo {
+    font-size: 26px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: #d4af37; 
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #000000;
+    padding: 15px 30px;
+}
+
+.navbar a {
+    color: #d4af37; 
+    text-decoration: none;
+    margin: 0 12px;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+
+a {
+    color: #d4af37;
+    text-decoration: none;
+}
+
+a:link {
+    color: #d4af37;
+}
+
+a:visited {
+    color: #b8860b;
+}
+
+a:active {
+    color: #ffffff;
+}
+
+
+.navbar a:hover {
+    color: #ffffff;
+    cursor: pointer; 
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    cursor: pointer;
+}
+
+
+h1 {
+    font-size: 32px;
+    margin-bottom: 10px;
+    text-align: center;
+    color: #d4af37;
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    text-align: center;
+    color: #d4af37;
+}
+
+.hero {
+    text-align: center;
+    padding: 40px 20px 20px;
+}
+
+.hero-subtitle {
+    max-width: 650px;
+    margin: 0 auto;
+    color: #e0e0e0;
+}
+
+.section-title {
+    margin-top: 30px;
+}
+
+.page-header {
+    text-align: center;
+    padding: 40px 20px 20px;
+}
+
+.page-subtitle {
+    max-width: 650px;
+    margin: 0 auto;
+    color: #e0e0e0;
+}
+
+.content-block {
+    margin-top: 20px;
+    background: #1a1a1a;
+    padding: 20px 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+
+p {
+    margin-bottom: 10px;
+}
+
+ul {
+    margin: 10px 0 10px 20px;
+}
+
+.logo {
+    width: 120px;
+}
+
+
+footer p {
+    text-align: center;
+    padding: 15px;
+    background: #000000;
+    color: #d4af37;
+    margin-top: 40px;
+}
+
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-rows: repeat(3, auto);
+    gap: 10px;
+    padding: 20px 0;
+}
+
+.grid-item {
+    background: #1a1a1a;
+    padding: 15px;
+    text-align: center;
+    border-radius: 6px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.grid-item img {
+    max-width: 100%;
+    height: 150px;
+    object-fit: cover;
+    margin-bottom: 8px;
+}
+
+.grid-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
+}
+
+.brand-item {
+    cursor: pointer;
+}
+
+.brand-item:hover {
+    background-color: #d4af37;
+    color: #000000;
+}
+
+table {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid #d4af37;
+    padding: 10px;
+}
+
+th {
+    background-color: #000000;
+    color: #d4af37;
+}
+
+tr:nth-child(even) {
+    background-color: #181818;
+}
+
+td:first-child {
+    font-weight: bold;
+}
+
+
+.badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: red;
+    color: white;
+    padding: 5px;
+}
+
+form {
+    max-width: 600px;
+    margin: 20px auto;
+    background: #1a1a1a;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="date"],
+select,
+textarea {
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 4px;
+    border: 1px solid #555;
+    background-color: #0f0f0f;
+    color: #ffffff;
+}
+
+input[type="submit"],
+button {
+    background-color: #d4af37;
+    color: #000000;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+input[type="submit"]:hover,
+button:hover {
+    background-color: #f0d273;
+    transform: translateY(-1px);
+}
+
+@media (max-width: 768px) {
+    .grid-container {
+        grid-template-columns: 1fr;
+    }
+
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .navbar nav {
+        margin-top: 10px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .hero {
+        padding-top: 60px;
+        padding-bottom: 40px;
+    }
+}
+
+.contact-marquee-wrap {
+    background-color: #000000;
+    border-bottom: 2px solid #d4af37;
+    padding: 10px 0;
+}
+
+.contact-marquee {
+    color: #d4af37;
+    font-weight: bold;
+}
+
+.contact-page-nav {
+    margin-bottom: 20px;
+}
+
+.contact-page-nav-title {
+    font-weight: bold;
+    color: #d4af37;
+    margin-bottom: 8px;
+}
+
+.contact-page-nav-sep {
+    color: #888;
+}
+
+.contact-gallery {
+    text-align: center;
+    margin: 16px 0 24px;
+}
+
+.contact-gallery img {
+    max-width: 100%;
+    max-height: 420px;
+    object-fit: contain;
+    border: 2px solid #d4af37;
+    border-radius: 8px;
+}
+
+.funpage-main .fun-section {
+    margin-bottom: 24px;
+}
+
+.fun-game-row input[type="text"] {
+    display: inline-block;
+    max-width: 280px;
+    width: auto;
+    margin-right: 10px;
+}
+
+.fun-feedback {
+    min-height: 1.5em;
+    margin-top: 10px;
+}
+
+.bubble-outer {
+    border: 2px solid #d4af37;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #1a1a1a;
+    margin: 16px 0;
+}
+
+.bubble-middle {
+    border: 2px dashed #b8860b;
+    padding: 15px;
+    margin-top: 12px;
+    border-radius: 6px;
+}
+
+.bubble-label {
+    font-size: 0.9rem;
+    color: #d4af37;
+    margin-bottom: 6px;
+}
+
+.bubble-inner-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.bubble-btn {
+    flex: 1 1 160px;
+}
+
+.bubble-btn-stop {
+    background-color: #5d4037;
+    color: #ffffff;
+}
+
+.bubble-log {
+    background-color: #0f0f0f;
+    border: 1px solid #555555;
+    min-height: 100px;
+    max-height: 220px;
+    overflow-y: auto;
+    padding: 12px;
+    font-family: Consolas, monospace;
+    font-size: 0.85rem;
+    margin: 12px 0;
+}
+
+.bubble-clear {
+    background-color: #424242;
+    color: #ffffff;
+}
+
+.keyboard-hint {
+    color: #d4af37;
+}

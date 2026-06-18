@@ -1,0 +1,253 @@
+<!-- Membres: Yahia, Ghafer -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Account</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+<header class="navbar">
+    <div id="logo">
+        <img src="../img/noir.jpg" alt="G&Y Sole Logo" class="logo">
+    </div>
+    <nav>
+        <a href="../index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="account.html">Account</a>
+    </nav>
+</header>
+
+<main class="container">
+    <h1>User Account</h1>
+
+    <section>
+        <p>Create your account or login to manage your orders.</p>
+    </section>
+
+    <!-- ====================================================
+         FORMULAIRE 1 : Login / Création de compte
+         Envoi vers le script PHP dédié
+    ==================================================== -->
+    <section class="content-block">
+        <h2>Login Form</h2>
+        <form id="loginForm" action="../php/account_traitement.php" method="post"
+              novalidate onsubmit="return validerLogin()">
+
+            <div class="form-group">
+                <label for="username">Username * (3–20 car., lettres/chiffres/underscore)</label>
+                <!-- pattern HTML pour validation native -->
+                <input type="text" id="username" name="username"
+                       minlength="3" maxlength="20"
+                       pattern="[A-Za-z0-9_]{3,20}"
+                       placeholder="Ex : john_doe">
+                <span id="errUsername" class="err-msg"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password * (min 8 car., 1 maj, 1 chiffre)</label>
+                <input type="password" id="password" name="password"
+                       minlength="8" placeholder="Votre mot de passe">
+                <span id="errPassword" class="err-msg"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="confirmPassword">Confirmer le mot de passe *</label>
+                <input type="password" id="confirmPassword" name="confirmPassword"
+                       placeholder="Répétez votre mot de passe">
+                <span id="errConfirmPassword" class="err-msg"></span>
+            </div>
+
+            <div class="form-group">
+                <span>Gender *</span>
+                <input type="radio" id="male" name="gender" value="male">
+                <label for="male">Male</label>
+                <input type="radio" id="female" name="gender" value="female">
+                <label for="female">Female</label>
+                <span id="errGender" class="err-msg" style="display:block;"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="birthdate">Birth date * (doit être dans le passé)</label>
+                <input type="date" id="birthdate" name="birthdate">
+                <span id="errBirthdate" class="err-msg"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="size">Shoe size * (30–50)</label>
+                <input type="number" id="size" name="size" min="30" max="50"
+                       placeholder="Ex : 42">
+                <span id="errSize" class="err-msg"></span>
+            </div>
+
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" id="subscribe" name="subscribe">
+                    Subscribe to newsletter
+                </label>
+            </div>
+
+            <input type="submit" value="Login / Register">
+        </form>
+    </section>
+
+    <!-- ====================================================
+         FORMULAIRE 2 : Préférences
+         Envoi vers le même script PHP
+    ==================================================== -->
+    <section class="content-block">
+        <h2>Preferences Form</h2>
+        <form id="preferencesForm" action="../php/account_traitement.php" method="post"
+              novalidate onsubmit="return validerPreferences()">
+            <!-- Champ caché pour différencier les deux formulaires côté PHP -->
+            <input type="hidden" name="form_type" value="preferences">
+
+            <div class="form-group">
+                <label for="favorite-brand">Favorite brand *</label>
+                <select id="favorite-brand" name="favoriteBrand">
+                    <option value="">— Choisir —</option>
+                    <option value="nike">Nike</option>
+                    <option value="adidas">Adidas</option>
+                    <option value="puma">Puma</option>
+                    <option value="newbalance">New Balance</option>
+                </select>
+                <span id="errBrand" class="err-msg"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="comment">Comment * (min 5 car.)</label>
+                <textarea id="comment" name="comment" rows="4"
+                          placeholder="Vos préférences ou remarques..."></textarea>
+                <span id="errComment" class="err-msg"></span>
+            </div>
+
+            <input type="submit" value="Save preferences">
+        </form>
+    </section>
+</main>
+
+<footer>
+    <p>© 2026 G&Y Sole</p>
+</footer>
+
+<style>
+.err-msg {
+    color: #f44336;
+    font-size: 0.85em;
+    display: block;
+    min-height: 1.2em;
+    margin-top: 4px;
+}
+</style>
+
+<script>
+/**
+ * Validation JavaScript — Formulaire Login (account.html)
+ * Membres : Yahia, Ghafer
+ * Types : obligatoire, regex, longueur, plage, logique (confirmation MDP)
+ */
+
+function validerLogin() {
+    var valide = true;
+
+    function setErreur(id, msg) {
+        var el = document.getElementById(id);
+        if (el) el.innerText = msg;
+        if (msg !== '') valide = false;
+    }
+
+    // ── 1. Username : obligatoire + regex (lettres, chiffres, _) + longueur ──
+    var username = document.getElementById('username').value.trim();
+    var regexUsername = /^[A-Za-z0-9_]{3,20}$/;
+    if (username === '') {
+        setErreur('errUsername', 'Le nom d\'utilisateur est obligatoire.');
+    } else if (!regexUsername.test(username)) {
+        setErreur('errUsername', 'Entre 3 et 20 caractères : lettres, chiffres ou _ uniquement.');
+    } else {
+        setErreur('errUsername', '');
+    }
+
+    // ── 2. Mot de passe : min 8 car., au moins 1 majuscule, 1 chiffre ────────
+    var password = document.getElementById('password').value;
+    var regexPassword = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
+    if (password === '') {
+        setErreur('errPassword', 'Le mot de passe est obligatoire.');
+    } else if (!regexPassword.test(password)) {
+        setErreur('errPassword', 'Min 8 caractères, au moins 1 majuscule et 1 chiffre.');
+    } else {
+        setErreur('errPassword', '');
+    }
+
+    // ── 3. Confirmation MDP : validation logique ──────────────────────────────
+    var confirmPassword = document.getElementById('confirmPassword').value;
+    if (confirmPassword === '') {
+        setErreur('errConfirmPassword', 'La confirmation est obligatoire.');
+    } else if (password !== confirmPassword) {
+        setErreur('errConfirmPassword', 'Les mots de passe ne correspondent pas.');
+    } else {
+        setErreur('errConfirmPassword', '');
+    }
+
+    // ── 4. Genre : radio obligatoire ──────────────────────────────────────────
+    var radios = document.getElementsByName('gender');
+    var radioOk = false;
+    for (var i = 0; i < radios.length; i++) {
+        if (radios[i].checked) { radioOk = true; break; }
+    }
+    setErreur('errGender', !radioOk ? 'Veuillez sélectionner un genre.' : '');
+
+    // ── 5. Date de naissance : obligatoire + doit être dans le passé ──────────
+    var birthdate = document.getElementById('birthdate').value;
+    if (!birthdate) {
+        setErreur('errBirthdate', 'La date de naissance est obligatoire.');
+    } else if (new Date(birthdate) >= new Date()) {
+        setErreur('errBirthdate', 'La date de naissance doit être dans le passé.');
+    } else {
+        setErreur('errBirthdate', '');
+    }
+
+    // ── 6. Pointure : plage 30–50 ─────────────────────────────────────────────
+    var size = parseInt(document.getElementById('size').value, 10);
+    if (isNaN(size) || size < 30 || size > 50) {
+        setErreur('errSize', 'La pointure doit être entre 30 et 50.');
+    } else {
+        setErreur('errSize', '');
+    }
+
+    return valide;
+}
+
+/**
+ * Validation JavaScript — Formulaire Préférences
+ */
+function validerPreferences() {
+    var valide = true;
+
+    function setErreur(id, msg) {
+        var el = document.getElementById(id);
+        if (el) el.innerText = msg;
+        if (msg !== '') valide = false;
+    }
+
+    // Marque favorite : sélection obligatoire
+    var brand = document.getElementById('favorite-brand').value;
+    setErreur('errBrand', brand === '' ? 'Veuillez choisir une marque favorite.' : '');
+
+    // Commentaire : min 5 caractères
+    var comment = document.getElementById('comment').value.trim();
+    if (comment === '') {
+        setErreur('errComment', 'Le commentaire est obligatoire.');
+    } else if (comment.length < 5) {
+        setErreur('errComment', 'Le commentaire doit faire au moins 5 caractères.');
+    } else {
+        setErreur('errComment', '');
+    }
+
+    return valide;
+}
+</script>
+</body>
+</html>
