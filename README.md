@@ -83,9 +83,3 @@ gy_sole/
 - Admin dashboard — role-protected product CRUD
 - Contact form + questionnaire wired to API
 
-
----
-
-## Design notes
-
-This build is opinionated. Read `DESIGN.md` before touching the UI. Key rules: no tracked uppercase, no dead-center hero, no fake heritage, gold is an accent not a coat of paint. Accessibility target is WCAG AAA.
