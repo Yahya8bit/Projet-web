@@ -2,7 +2,7 @@
 
 Black-and-gold sneaker storefront. React SPA + PHP REST API. Originally a school project (HTML/CSS/PHP), rebuilt from scratch as a portfolio showpiece.
 
-**By Yahia & Ghafer.**
+**By Yahia.**
 
 ---
 
