@@ -83,17 +83,6 @@ gy_sole/
 - Admin dashboard — role-protected product CRUD
 - Contact form + questionnaire wired to API
 
----
-
-## Screenshots
-
-```bash
-# Requires dev server running at http://localhost:5173
-node screenshot.mjs http://localhost:5173
-node screenshot.mjs http://localhost:5173/products products
-```
-
-Saves to `./temporary screenshots/`.
 
 ---
 
