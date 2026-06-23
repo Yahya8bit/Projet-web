@@ -70,8 +70,6 @@ gy_sole/
 │   ├── jwt.php        jwtCreate / jwtVerify
 │   └── auth_guard.php requireAuth / requireAdmin
 ├── img/               Source images
-├── DESIGN.md          Visual art direction
-└── PRODUCT.md         Brand strategy + principles
 ```
 
 ---
